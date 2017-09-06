@@ -1,6 +1,13 @@
 [package]
+authors = ["Sunrin SHIMURA (keen) <3han5chou7@gmail.com>"]
 name = "moneyforward-invoice-api"
 version = "0.1.0"
-authors = ["Sunrin SHIMURA (keen) <3han5chou7@gmail.com>"]
-
 [dependencies]
+reqwest = "0.7.3"
+serde = "1.0.11"
+serde_derive = "1.0.11"
+serde_json = "1.0.2"
+
+[dependencies.chrono]
+features = ["serde"]
+version = "0.4.0"
