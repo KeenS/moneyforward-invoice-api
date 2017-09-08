@@ -178,8 +178,8 @@ impl Client {
         self.post_json("/api/v1/items.json", &req)
     }
 
-    pub fn update_item(&mut self, req: UpdateItem) -> Result<Item> {
-        self.patch_json("/api/v1/items.json", &req)
+    pub fn update_item(&mut self, id: &str, req: UpdateItem) -> Result<Item> {
+        self.patch_json(&format!("/api/v1/items/{}", id), &req)
     }
 
     pub fn delete_item(&mut self, id: &str) -> Result<()> {

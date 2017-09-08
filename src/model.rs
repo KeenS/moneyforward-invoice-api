@@ -493,10 +493,25 @@ pub struct UpdateBillingItem {
 /// 品目一覧
 pub struct Items {
     /// メタデータ
-    pub meta: Meta,
+    pub meta: ItemsMeta,
     /// 品目一覧
     pub items: Vec<Item>,
 }
+
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
+#[derive(Serialize, Deserialize)]
+/// 商品検索結果のメタデータ
+pub struct ItemsMeta {
+    /// 総項目数
+    pub total_count: u32,
+    /// 総ページ数
+    pub total_pages: u32,
+    /// 現ページ
+    pub current_page: u32,
+    /// 1ページあたりの項目数
+    pub per_page: u32,
+}
+
 
 #[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash)]
 #[derive(Serialize, Deserialize)]
@@ -504,19 +519,19 @@ pub struct Item {
     /// 品目ID e.g. "ABCDEFGHIJKLMNOPQRST012"
     pub id: String,
     /// コード e.g. "ITEM-001"
-    pub code: String,
+    pub code: Option<String>,
     /// 名前 e.g. "商品A"
     pub name: String,
     /// 詳細 e.g. ""
-    pub detail: String,
+    pub detail: Option<String>,
     /// 数量 e.g. 1
-    pub quantity: u32,
+    pub quantity: Option<u32>,
     /// 単価 e.g. 1000
-    pub unit_price: u32,
+    pub unit_price: Option<u32>,
     /// 単位 e.g. "個"
-    pub unit: String,
+    pub unit: Option<String>,
     /// 金額 e.g. 1000
-    pub price: u32,
+    pub price: String,
     /// 課税対象 e.g. true
     pub excise: bool,
     /// 作成日時 e.g. "2015/10/31T00:00:00.000+09:00"
@@ -530,7 +545,7 @@ pub struct Item {
 /// 品目作成用のリクエストデータ
 pub struct NewItem {
     /// 名前
-    pub name: Option<String>,
+    pub name: String,
     /// 品目コード
     pub code: Option<String>,
     /// 詳細
