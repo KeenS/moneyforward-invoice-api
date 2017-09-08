@@ -350,9 +350,9 @@ impl ::std::io::Read for BillingPdf {
 /// 請求書検索の結果
 pub struct BillingQueryResponse {
     /// メタデータ
-    meta: BillingQueryMeta,
+    pub meta: BillingQueryMeta,
     /// 検索結果請求書
-    billings: Vec<Billing>,
+    pub billings: Vec<Billing>,
 }
 
 #[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash)]
@@ -496,9 +496,9 @@ pub struct UpdateBillingItem {
 /// 品目一覧
 pub struct Items {
     /// メタデータ
-    meta: Meta,
+    pub meta: Meta,
     /// 品目一覧
-    items: Vec<Item>,
+    pub items: Vec<Item>,
 }
 
 #[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash)]
@@ -583,20 +583,20 @@ pub struct SentHistories {
 /// 送付データ
 pub struct SentHistory {
     /// e.g. "ABCDEFGHIJKLMNOP"
-    operator_id: String,
+    pub operator_id: String,
     /// e.g. "メール"
     #[serde(rename = "type")]
-    type_: String,
+    pub type_: String,
     /// e.g. "請求書"
-    document_type: String,
+    pub document_type: String,
     /// e.g. "ABCDEFGHIJKLMNOP"
-    document_id: String,
+    pub document_id: String,
     /// e.g. ""
-    from: String,
+    pub from: String,
     /// e.g. "sample@moneyforward.co.jp"
-    to: String,
+    pub to: String,
     /// e.g. ""
-    cc: String,
+    pub cc: String,
     /// e.g. "2015-05-15T11:40:44.000+09:00"
-    sent_at: String,
+    pub sent_at: String,
 }
