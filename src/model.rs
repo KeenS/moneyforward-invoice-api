@@ -59,7 +59,7 @@ pub struct UpdateOffice {
 }
 
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 取引先一覧
 pub struct Partners {
@@ -69,7 +69,7 @@ pub struct Partners {
     pub partners: Vec<Partner>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 検索結果のメタデータ
 pub struct Meta {
@@ -78,14 +78,14 @@ pub struct Meta {
     /// 総ページ数
     pub total_pages: u32,
     /// 現ページ
-    pub current_page: u32,
+    pub current_page: String,
     /// 1ページあたりの項目数
-    pub per_page: u32,
+    pub per_page: String,
 }
 
 
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash)]
 #[derive(Serialize, Deserialize)]
 /// 取引先
 pub struct Partner {
@@ -94,22 +94,22 @@ pub struct Partner {
     /// 顧客コード
     pub code: Option<String>,
     /// 名前
-    pub name: Option<String>,
+    pub name: String,
     /// 名前（カナ）
     pub name_kana: Option<String>,
     /// 敬称
-    pub name_suffix: Option<String>,
+    pub name_suffix: String,
     /// メモ
     pub memo: Option<String>,
     /// 部門
-    pub department: Department,
+    pub departments: Vec<Department>,
     /// 作成日時
     pub created_at: DateTime<FixedOffset>,
     /// 更新日時
     pub updated_at: DateTime<FixedOffset>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 部門
 pub struct Department {
@@ -120,7 +120,7 @@ pub struct Department {
     /// 電話番号
     pub tel: Option<String>,
     /// 都道府県
-    pub prefecture: Option<String>,
+    pub prefecture: String,
     /// 住所1
     pub address1: Option<String>,
     /// 住所2
@@ -137,7 +137,7 @@ pub struct Department {
     pub cc_emails: Option<String>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 取引先作成用リクエストデータ
 pub struct NewPartner {
@@ -173,7 +173,7 @@ pub struct NewPartner {
     pub cc_emails: Option<String>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 取引先更新用リクエストデータ
 pub struct UpdatePartner {
@@ -188,15 +188,15 @@ pub struct UpdatePartner {
     /// メモ
     pub memo: Option<String>,
     /// 部門
-    pub department: Vec<UpdateDepartmentInfo>,
+    pub departments: Vec<UpdateDepartmentInfo>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 取引先更新用リクエストデータに付随する部門更新用リクエストデータ
 pub struct UpdateDepartmentInfo {
-    /// 部門ID
-    pub id: String,
+    /// 部門ID。既存の部門を更新する際には必須です。
+    pub id: Option<String>,
     /// 郵便番号
     pub zip: Option<String>,
     /// 電話番号
@@ -220,7 +220,7 @@ pub struct UpdateDepartmentInfo {
 }
 
 
-#[derive(Debug, Clone, PartialOrd, PartialEq)]
+#[derive(Debug, Clone, PartialOrd, PartialEq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 請求書一覧
 pub struct Billings {
@@ -230,7 +230,7 @@ pub struct Billings {
     pub billings: Vec<Billing>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash)]
 #[derive(Serialize, Deserialize)]
 pub struct Billing {
     /// 請求書ID e.g. "ABCDEFGHIJKLMNOPQRST123"
@@ -292,7 +292,7 @@ pub struct Billing {
     pub items: Vec<BillingItem>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 請求書各種状況
 pub struct Status {
@@ -306,7 +306,7 @@ pub struct Status {
     pub payment: String,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash)]
 #[derive(Serialize, Deserialize)]
 /// 品目
 pub struct BillingItem {
@@ -345,7 +345,7 @@ impl ::std::io::Read for BillingPdf {
 }
 
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash)]
 #[derive(Serialize, Deserialize)]
 /// 請求書検索の結果
 pub struct BillingQueryResponse {
@@ -355,7 +355,7 @@ pub struct BillingQueryResponse {
     billings: Vec<Billing>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash)]
 #[derive(Serialize, Deserialize)]
 /// 請求書検索結果のメタデータ
 pub struct BillingQueryMeta {
@@ -371,7 +371,7 @@ pub struct BillingQueryMeta {
     pub condition: Condition,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash)]
 #[derive(Serialize, Deserialize)]
 /// 検索条件
 pub struct Condition {
@@ -380,23 +380,15 @@ pub struct Condition {
     /// 期間絞込対象 e.g. "created_at"
     pub range_key: String,
     /// 期間開始日 e.g. "2015-10-01"
-    pub from: String,
+    pub from: NaiveDate,
     /// 期間終了日 "2015-10-31"
-    pub to: String,
+    pub to: NaiveDate,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 請求書作成用リクエストデータ
 pub struct NewBilling {
-    /// 請求書
-    pub billing: NewBillingBilling,
-}
-
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
-#[derive(Serialize, Deserialize)]
-/// 請求書作成用リクエストデータに付随する請求書作成用データ
-pub struct NewBillingBilling {
     /// 部門ID
     pub department_id: String,
     /// 件名
@@ -408,11 +400,11 @@ pub struct NewBillingBilling {
     /// 備考
     pub note: Option<String>,
     /// 請求日
-    pub billing_date: Option<String>,
+    pub billing_date: Option<NaiveDate>,
     /// お支払期限
-    pub due_date: Option<String>,
+    pub due_date: Option<NaiveDate>,
     /// 売上計上日
-    pub sales_date: Option<String>,
+    pub sales_date: Option<NaiveDate>,
     /// メモ
     pub memo: Option<String>,
     /// 帳票名
@@ -423,7 +415,7 @@ pub struct NewBillingBilling {
     pub items: Vec<NewBillingItem>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 請求書作成用リクエストデータに付随する品目データ
 pub struct NewBillingItem {
@@ -445,17 +437,10 @@ pub struct NewBillingItem {
     pub excise: bool,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 請求書更新用リクエストデータ
 pub struct UpdateBilling {
-    pub billings: UpdateBillingBilling,
-}
-
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
-#[derive(Serialize, Deserialize)]
-/// 請求書更新用リクエストデータに付随する請求書更新用データ
-pub struct UpdateBillingBilling {
     /// 部門ID
     pub department_id: String,
     /// 件名
@@ -467,11 +452,11 @@ pub struct UpdateBillingBilling {
     /// 備考
     pub note: Option<String>,
     /// 請求日
-    pub billing_date: Option<String>,
+    pub billing_date: Option<NaiveDate>,
     /// お支払期限
-    pub due_date: Option<String>,
+    pub due_date: Option<NaiveDate>,
     /// 売上計上日
-    pub sales_date: Option<String>,
+    pub sales_date: Option<NaiveDate>,
     /// メモ
     pub memo: Option<String>,
     /// 帳票名
@@ -482,7 +467,7 @@ pub struct UpdateBillingBilling {
     pub items: Vec<UpdateBillingItem>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 請求書更新用リクエストデータに付随する品目更新用データ
 pub struct UpdateBillingItem {
@@ -502,10 +487,11 @@ pub struct UpdateBillingItem {
     pub unit: Option<u32>,
     /// 税対象
     pub excise: bool,
-    _destroy: bool,
+    /// 削除するならtrue
+    pub _destroy: bool,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 品目一覧
 pub struct Items {
@@ -515,7 +501,7 @@ pub struct Items {
     items: Vec<Item>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash)]
 #[derive(Serialize, Deserialize)]
 pub struct Item {
     /// 品目ID e.g. "ABCDEFGHIJKLMNOPQRST012"
@@ -542,7 +528,7 @@ pub struct Item {
     pub updated_at: DateTime<FixedOffset>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 品目作成用のリクエストデータ
 pub struct NewItem {
@@ -562,7 +548,7 @@ pub struct NewItem {
     pub excise: Option<bool>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 品目更新用のリクエストデータ
 pub struct UpdateItem {
@@ -582,7 +568,7 @@ pub struct UpdateItem {
     pub excise: Option<bool>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 送付履歴一覧
 pub struct SentHistories {
@@ -592,7 +578,7 @@ pub struct SentHistories {
     pub sent_history_list: Vec<SentHistory>,
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Default)]
 #[derive(Serialize, Deserialize)]
 /// 送付データ
 pub struct SentHistory {
