@@ -235,7 +235,6 @@ pub struct Billings {
 pub struct Billing {
     /// 請求書ID e.g. "ABCDEFGHIJKLMNOPQRST123"
     pub id: String,
-    pub user_id: String,
     /// 取引先ID e.g. "ABCDEFGHIJKLMNOPQRST789"
     pub partner_id: String,
     /// 部門ID e.g. "ABCDEFGHIJKLMNOPQRST012",
@@ -249,25 +248,23 @@ pub struct Billing {
     /// 担当者ID e.g. "ABCDEFGHIJKLMNOPQRST345"
     pub member_id: String,
     /// 担当者名 e.g. "member_name"
-    pub member_name: String,
+    pub member_name: Option<String>,
     /// 事業所名 e.g. "サンプル事業所"
     pub office_name: String,
     /// 事業所詳細 e.g. ""
     pub office_detail: String,
     /// 件名 e.g. "件名サンプル"
-    pub title: String,
+    pub title: Option<String>,
     /// 消費税 e.g. 80
-    pub excise_price: u32,
-    /// 割引額 e.g. 0
-    pub deduct_price: u32,
+    pub excise_price: String,
     /// 小計額 e.g. 1000
-    pub subtotal: u32,
+    pub subtotal: String,
     /// メモ e.g. ""
-    pub memo: String,
+    pub memo: Option<String>,
     /// 支払条件 e.g. ""
-    pub payment_condition: String,
+    pub payment_condition: Option<String>,
     /// 合計額 e.g. 1080
-    pub total_price: u32,
+    pub total_price: String,
     // /// 請求日 e.g. "2015/10/31"
     // pub billing_date: Date<FixedOffset>,
     // /// 支払い期日 e.g. "2015/11/30"
@@ -281,13 +278,13 @@ pub struct Billing {
     /// 請求番号 e.g. "1"
     pub billing_number: String,
     /// 備考 e.g. ""
-    pub note: String,
+    pub note: Option<String>,
     /// 文書名 e.g. ""
     pub document_name: String,
     /// タグ
     pub tags: Vec<String>,
     /// 状態
-    pub status: Vec<Status>,
+    pub status: Status,
     /// 品目
     pub items: Vec<BillingItem>,
 }
@@ -313,19 +310,19 @@ pub struct BillingItem {
     /// 品目ID e.g. "ABCDEFGHIJKLMNOPQRST012"
     pub id: String,
     /// コード e.g. "ITEM-001"
-    pub code: String,
+    pub code: Option<String>,
     /// 品名 e.g. "商品A"
-    pub name: String,
+    pub name: Option<String>,
     /// 詳細 e.g. ""
-    pub detail: String,
+    pub detail: Option<String>,
     /// 数量 e.g. 1
-    pub quantity: u32,
+    pub quantity: Option<u32>,
     /// 単価 e.g. 1000
-    pub unit_price: u32,
+    pub unit_price: Option<u32>,
     /// 単位 e.g. "個"
-    pub unit: String,
+    pub unit: Option<String>,
     /// 金額 e.g. 1000
-    pub price: u32,
+    pub price: Option<u32>,
     /// 表示順 e.g. 0
     pub display_order: u32,
     /// 課税対象 e.g. true
@@ -364,9 +361,9 @@ pub struct BillingQueryMeta {
     /// 総ページ数
     pub total_pages: u32,
     /// 現ページ
-    pub current_page: u32,
+    pub current_page: String,
     /// 1ページあたりの項目数
-    pub per_page: u32,
+    pub per_page: String,
     /// 条件
     pub condition: Condition,
 }

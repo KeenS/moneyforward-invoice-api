@@ -144,12 +144,15 @@ impl Client {
         self.post_json("/api/v1/billings", &Request { billing: req })
     }
 
-    pub fn update_billing(&mut self, req: UpdateBilling) -> Result<Billing> {
+    pub fn update_billing(&mut self, id: &str, req: UpdateBilling) -> Result<Billing> {
         #[derive(Serialize)]
         struct Request {
             billing: UpdateBilling,
         }
-        self.patch_json("/api/v1/billings", &Request { billing: req })
+        self.patch_json(
+            &format!("/api/v1/billings/{}", id),
+            &Request { billing: req },
+        )
     }
 
     pub fn posting_billing(&mut self, id: &str) -> Result<()> {
