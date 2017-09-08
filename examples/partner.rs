@@ -3,8 +3,6 @@
 extern crate moneyforward_invoice_api as mf;
 extern crate env_logger;
 extern crate native_tls;
-extern crate oauth2;
-extern crate url;
 
 use mf::{NewPartner, UpdatePartner, UpdateDepartmentInfo};
 use std::env;
