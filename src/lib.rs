@@ -186,8 +186,14 @@ impl Client {
         self.delete_void(&format!("/api/v1/items/{}", id))
     }
 
-    pub fn sent_history(mut self) -> Result<SentHistory> {
-        self.get("/api/v1/sent_history.json")
+    pub fn sent_history(&mut self, page: u32, per_page: u32) -> Result<SentHistories> {
+        self.get_params(
+            "/api/v1/sent_history.json",
+            &[
+                ("page", &page.to_string()),
+                ("per_page", &per_page.to_string()),
+            ],
+        )
     }
 }
 
