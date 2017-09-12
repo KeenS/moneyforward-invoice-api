@@ -22,27 +22,35 @@ fn main() {
         .unwrap();
     println!("created partner: {:#?}", partner);
     // 取引先を更新
-    let partner = client.update_partner(
-        &partner.id,
-        UpdatePartner {
-            memo: Some("更新しました".into()),
-            departments: vec![
-                UpdateDepartmentInfo {
-                    // IDがあると既存の部門を更新します
-                    id: Some(partner.departments[0].clone().id),
-                    name: Some("部門名です".into()),
-                    ..Default::default()
-                },
-                UpdateDepartmentInfo {
-                    // IDがなければ新規作成になります
-                    name: Some("新しい部門".into()),
-                    ..Default::default()
-                },
-            ],
-            ..Default::default()
-        },
-    );
+    let partner = client
+        .update_partner(
+            &partner.id,
+            UpdatePartner {
+                memo: Some("更新しました".into()),
+                departments: vec![
+                    UpdateDepartmentInfo {
+                        // IDがあると既存の部門を更新
+                        id: Some(partner.departments[0].clone().id),
+                        name: Some("部門名です".into()),
+                        ..Default::default()
+                    },
+                    UpdateDepartmentInfo {
+                        // IDがなければ新規作成
+                        name: Some("新しい部門".into()),
+                        ..Default::default()
+                    },
+                ],
+                ..Default::default()
+            },
+        )
+        .unwrap()
+        .unwrap();
     println!("updated partner: {:#?}", partner);
+
+    // 取引先情報を取得
+    let partner = client.get_partner(&partner.id).unwrap().unwrap();
+    println!("got partner: {:#?}", partner);
+
     // 既存の取引先を列挙
     let partners = client.list_partners(1, 100).unwrap().unwrap();
     println!("{:#?}", partners.meta);
