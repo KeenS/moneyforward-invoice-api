@@ -3,9 +3,11 @@
 extern crate moneyforward_invoice_api as mf;
 extern crate env_logger;
 extern crate native_tls;
+extern crate chrono;
 
 use mf::{Client, NewBilling, NewBillingItem, NewPartner, UpdateBilling, UpdateBillingItem};
 use std::env;
+use chrono::NaiveDate;
 
 fn main() {
     env_logger::init().unwrap();
@@ -24,6 +26,7 @@ fn main() {
     let billing = client
         .create_billing(NewBilling {
             department_id: partner.departments[0].clone().id,
+            billing_date: Some(NaiveDate::from_ymd(2017, 9, 30)),
             items: vec![NewBillingItem { ..Default::default() }],
             ..Default::default()
         })
