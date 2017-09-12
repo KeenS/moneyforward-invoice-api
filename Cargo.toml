@@ -6,7 +6,7 @@ description = "a moneyforward's invoice api wrapper library"
 readme = "README.md"
 documentation = "http://docs.rs/moneyforward-invoice-api"
 repository = "https://github.com/KeenS/moneyforward-invoice-api-rs"
-keywords = ["api", "http client"]
+keywords = ["api", "http_client"]
 
 
 [dependencies]
