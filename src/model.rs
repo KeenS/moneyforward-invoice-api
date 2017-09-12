@@ -265,12 +265,12 @@ pub struct Billing {
     pub payment_condition: Option<String>,
     /// 合計額 e.g. 1080
     pub total_price: String,
-    // /// 請求日 e.g. "2015/10/31"
-    // pub billing_date: Date<FixedOffset>,
-    // /// 支払い期日 e.g. "2015/11/30"
-    // pub due_date: Date<FixedOffset>,
-    // /// 売上日 e.g. "2015/10/31"
-    // pub sales_date: Date<FixedOffset>,
+    /// 請求日
+    pub billing_date: NaiveDate,
+    /// 支払い期日
+    pub due_date: NaiveDate,
+    /// 売上日
+    pub sales_date: NaiveDate,
     /// 作成日時 e.g. "2015/10/31T00:00:00.000+09:00"
     pub created_at: DateTime<FixedOffset>,
     /// 更新日時 e.g. "2015/10/31T00:00:00.000+09:00"
@@ -376,9 +376,9 @@ pub struct Condition {
     pub query: String,
     /// 期間絞込対象 e.g. "created_at"
     pub range_key: String,
-    /// 期間開始日 e.g. "2015-10-01"
+    /// 期間開始日
     pub from: NaiveDate,
-    /// 期間終了日 "2015-10-31"
+    /// 期間終了日
     pub to: NaiveDate,
 }
 
