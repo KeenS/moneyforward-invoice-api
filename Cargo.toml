@@ -2,12 +2,13 @@
 authors = ["Sunrin SHIMURA (keen) <3han5chou7@gmail.com>"]
 name = "moneyforward-invoice-api"
 version = "0.1.0"
+license = ""
 description = "a moneyforward's invoice api wrapper library"
 readme = "README.md"
 documentation = "http://docs.rs/moneyforward-invoice-api"
 repository = "https://github.com/KeenS/moneyforward-invoice-api-rs"
 keywords = ["api", "http_client"]
-
+categories = ["api-bindings"]
 
 [dependencies]
 log = "0.3.8"
