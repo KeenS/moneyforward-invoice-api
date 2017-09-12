@@ -124,13 +124,13 @@ impl Client {
     }
 
     pub fn get_billing(&mut self, id: &str) -> Result<Billing> {
-        self.get(&format!("/api/v1/billing/{}.json", id))
+        self.get(&format!("/api/v1/billings/{}.json", id))
     }
 
     pub fn get_billing_pdf(&mut self, id: &str) -> Result<BillingPdf> {
         self.request_raw::<()>(
             Method::Get,
-            &format!("/api/v1/billing/{}.pdf", id),
+            &format!("/api/v1/billings/{}.pdf", id),
             None,
             None,
         ).map(|res| res.map(BillingPdf))

@@ -56,6 +56,10 @@ fn main() {
 
     println!("updated billing: {:#?}", billing);
 
+    let billing = client.get_billing(&billing.id).unwrap().unwrap();
+    println!("got billing: {:#?}", billing);
+
+
     let billings = client.list_billings(1, 100).unwrap().unwrap();
     println!("list metadata: {:#?}", billings.meta);
     println!("list :{:#?}", billings.billings);
