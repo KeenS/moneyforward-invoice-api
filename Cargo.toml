@@ -2,7 +2,7 @@
 authors = ["Sunrin SHIMURA (keen) <3han5chou7@gmail.com>"]
 name = "moneyforward-invoice-api"
 version = "0.1.0"
-license = ""
+license = "Apache-2.0/MIT"
 description = "a moneyforward's invoice api wrapper library"
 readme = "README.md"
 documentation = "http://docs.rs/moneyforward-invoice-api"
